@@ -9,6 +9,7 @@ use App\Http\Controllers\CorrectionRequestController;
 use App\Http\Controllers\Admin\AdminAttendanceController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminCorrectionRequestController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
 /*
@@ -26,7 +27,7 @@ Route::get('/admin/login', function (Request $request) {
     return app(LoginViewResponse::class);
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','verified'])->group(function () {
 
     Route::get('/attendance', [AttendanceController::class, 'index']);
 
@@ -73,6 +74,10 @@ Route::middleware('auth')->group(function () {
     '/admin/attendance/staff/{id}',
     [AdminUserController::class, 'attendance'])->name('admin.staff.attendance');
 
+    Route::get(
+    '/admin/attendance/staff/{id}/csv',
+    [AdminUserController::class, 'exportCsv'])->name('admin.staff.csv');
+
 
     Route::get(
     '/stamp_correction_request/approve/{attendance_correct_request_id}',
@@ -82,6 +87,36 @@ Route::middleware('auth')->group(function () {
     '/stamp_correction_request/approve/{attendance_correct_request_id}',
     [AdminCorrectionRequestController::class, 'approve'])->name('admin.request.approve.update');
 
+});
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+        })->name('verification.notice');
+
+
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back();
+    })->name('verification.send');
+
+
+    Route::get(
+    '/email/verify/{id}/{hash}',
+    function (EmailVerificationRequest $request) {
+
+        $request->fulfill();
+
+        if ($request->user()->role === 'admin') {
+
+            return redirect('/admin/attendance/list');
+        }
+
+        return redirect('/attendance');
+    })->middleware('signed')
+    ->name('verification.verify');
 });
 
 

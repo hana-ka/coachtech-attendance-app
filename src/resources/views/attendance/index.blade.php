@@ -17,7 +17,7 @@
 
         <div class="attendance-date">
             <p class="attendance-date__day">{{ $now->format('Y年n月j日') }}({{ ['日', '月', '火', '水', '木', '金', '土'][$now->dayOfWeek] }})</p>
-            <p class="attendance-date__time">{{ $now->format('H:i') }}</p>
+            <h1 class="attendance-date__time">{{ $now->format('H:i') }}</h1>
         </div>
 
         <div class="attendance-actions">

@@ -110,7 +110,7 @@
     </div>
 
     <div class="list__actions">
-                <button type="submit" class="list__button">CSV出力</button>
+                <a href="{{ route('admin.staff.csv', ['id' => $user->id,'month' => $currentMonth->format('Y-m')]) }}"class="list__button">CSV出力</a>
     </div>
 
 </div>

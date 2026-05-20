@@ -19,6 +19,7 @@ use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 use App\Http\Responses\RegisterResponse;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Fortify\Contracts\LogoutResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -88,5 +89,15 @@ class FortifyServiceProvider extends ServiceProvider
 
             return $user;
         });
+
+        $this->app->instance(
+            LogoutResponse::class,
+            new class implements LogoutResponse {
+                public function toResponse($request)
+                {
+                    return redirect('/login');
+                }
+            }
+        );
     }
 }
