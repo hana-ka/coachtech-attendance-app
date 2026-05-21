@@ -18,7 +18,7 @@
             <img class="header-logo" src="{{ asset('images/logo.png') }}" alt="logo">
 
             <nav class="header-nav">
-                @auth
+                @if(auth()->check() && !request()->routeIs('verification.notice'))
                     <div class="header-nav__links">
                         @if(auth()->user()->role === 'admin')
 
@@ -42,7 +42,7 @@
                         @csrf
                         <button type="submit" class="header-nav__logout-btn">ログアウト</button>
                     </form>
-                @endauth
+                @endif
             </nav>
         </div>
     </header>

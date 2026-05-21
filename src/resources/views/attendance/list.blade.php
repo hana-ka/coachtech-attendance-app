@@ -33,62 +33,79 @@
             </thead>
 
             <tbody>
-                @foreach ($attendances as $attendance)
-                <tr>
-                    <td class="list__td">{{ \Carbon\Carbon::parse($attendance->work_date)->format('m/d') }} （{{ ['日', '月', '火', '水', '木', '金', '土'][\Carbon\Carbon::parse($attendance->work_date)->dayOfWeek] }}）</td>
-                    <td class="list__td">{{ optional($attendance->clock_in)->format('H:i') }}</td>
-                    <td class="list__td">{{ optional($attendance->clock_out)->format('H:i') }}</td>
-                    <td class="list__td">
+                @foreach ($days as $day)
 
-                        @php
-
-                            $breakMinutes = 0;
-
-                            foreach ($attendance->breakTimes as $breakTime) {
-
-                                if ($breakTime->break_end) {
-
-                                    $breakMinutes +=
-                                        $breakTime->break_start
-                                            ->diffInMinutes($breakTime->break_end);
-
-                                }
-                            }
-
-                            $breakHours = floor($breakMinutes / 60);
-
-                            $breakRemainMinutes = $breakMinutes % 60;
-
-                        @endphp
-
-                        {{ sprintf('%02d:%02d', $breakHours, $breakRemainMinutes) }}
-
-                    </td>
-                    <td class="list__td">
-
-                        @if ($attendance->clock_in && $attendance->clock_out)
+                    @php
+                        $attendance =
+                            $attendances[$day->format('Y-m-d')]
+                            ?? null;
+                    @endphp
+                    <tr>
+                        <td class="list__td">{{ $day->format('m/d') }}
+                            （{{ ['日', '月', '火', '水', '木', '金', '土'][$day->dayOfWeek] }}）</td>
+                        <td class="list__td">{{ optional($attendance?->clock_in)->format('H:i') }}</td>
+                        <td class="list__td">{{ optional($attendance?->clock_out)->format('H:i') }}</td>
+                        <td class="list__td">
 
                             @php
 
-                                $workMinutes =
-                                    $attendance->clock_in
-                                        ->diffInMinutes($attendance->clock_out);
+                                $breakMinutes = 0;
 
-                                $totalMinutes = $workMinutes - $breakMinutes;
+                                if ($attendance) {
 
-                                $workHours = floor($totalMinutes / 60);
+                                    foreach ($attendance->breakTimes as $breakTime) {
 
-                                $workRemainMinutes = $totalMinutes % 60;
+                                        if ($breakTime->break_end) {
+
+                                            $breakMinutes +=
+                                                $breakTime->break_start
+                                                    ->diffInMinutes($breakTime->break_end);
+
+                                        }
+                                    }
+                                }
+
+                                $breakHours = floor($breakMinutes / 60);
+
+                                $breakRemainMinutes = $breakMinutes % 60;
 
                             @endphp
 
-                            {{ sprintf('%02d:%02d', $workHours, $workRemainMinutes) }}
+                            {{ sprintf('%02d:%02d', $breakHours, $breakRemainMinutes) }}
 
-                        @endif
+                        </td>
+                        <td class="list__td">
 
-                    </td>
-                    <td class="list__td"><a class="list__link" href="{{ route('attendance.detail', $attendance->id) }}">詳細</a></td>
-                </tr>
+                            @if ($attendance &&$attendance->clock_in && $attendance->clock_out)
+
+                                @php
+
+                                    $workMinutes =
+                                        $attendance->clock_in
+                                            ->diffInMinutes($attendance->clock_out);
+
+                                    $totalMinutes = $workMinutes - $breakMinutes;
+
+                                    $workHours = floor($totalMinutes / 60);
+
+                                    $workRemainMinutes = $totalMinutes % 60;
+
+                                @endphp
+
+                                {{ sprintf('%02d:%02d', $workHours, $workRemainMinutes) }}
+
+                            @endif
+
+                        </td>
+                        <td class="list__td">
+                                <a
+                                    class="list__link"
+                                    href="{{ route('attendance.detail',$day->format('Y-m-d')) }}"
+                                >
+                                    詳細
+                                </a>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

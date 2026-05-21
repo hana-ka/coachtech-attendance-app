@@ -15,7 +15,17 @@ class CorrectionRequestController extends Controller
     AttendanceUpdateRequest $request,
     $id)
     {
-        $attendance = Attendance::findOrFail($id);
+        $attendance = Attendance::firstOrCreate(
+
+            [
+                'user_id' => Auth::id(),
+                'work_date' => $id,
+            ],
+
+            [
+                'status' => 'off',
+            ]
+        );
 
         $correctionRequest = CorrectionRequest::create([
 

@@ -128,13 +128,42 @@ class AttendanceController extends Controller
             ->where('user_id', auth()->id())
             ->whereYear('work_date', $currentMonth->year)
             ->whereMonth('work_date', $currentMonth->month)
-            ->orderBy('work_date')
-            ->get();
+            ->get()
+            ->keyBy(function ($attendance) {
 
-        return view('attendance.list', compact(
-            'attendances',
-            'currentMonth'
-        ));
+                return $attendance->work_date
+                    ->format('Y-m-d');
+
+            });
+
+        $startDate = $currentMonth
+            ->copy()
+            ->startOfMonth();
+
+        $endDate = $currentMonth
+            ->copy()
+            ->endOfMonth();
+
+        $days = [];
+
+        for (
+            $date = $startDate->copy();
+            $date <= $endDate;
+            $date->addDay()
+        ) {
+
+            $days[] = $date->copy();
+
+        }
+
+        return view(
+            'attendance.list',
+            compact(
+                'attendances',
+                'currentMonth',
+                'days'
+            )
+        );
     }
 
     public function show($id)
@@ -143,16 +172,24 @@ class AttendanceController extends Controller
             'user',
             'breakTimes',
             'correctionRequests.correctionRequestBreaks',
-        ])->findOrFail($id);
+        ])
+        ->where('user_id', auth()->id())
+        ->whereDate('work_date', $id)
+        ->first();
 
-        $latestRequest =
+        $latestRequest = null;
+
+        if ($attendance) {
+            $latestRequest =
             $attendance->correctionRequests
                 ->sortByDesc('created_at')
                 ->first();
+        }
 
         return view('attendance.detail', compact(
             'attendance',
-            'latestRequest'
+            'latestRequest',
+            'id'
         ));
     }
 }
