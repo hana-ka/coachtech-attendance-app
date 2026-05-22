@@ -37,14 +37,41 @@ class AdminUserController extends Controller
                 $currentMonth->month
             )
             ->orderBy('work_date')
-            ->get();
+            ->get()
+            ->keyBy(function ($attendance) {
+
+                return $attendance->work_date
+                    ->format('Y-m-d');
+
+            });
+
+        $startDate = $currentMonth
+            ->copy()
+            ->startOfMonth();
+
+        $endDate = $currentMonth
+            ->copy()
+            ->endOfMonth();
+
+        $days = [];
+
+        for (
+            $date = $startDate->copy();
+            $date <= $endDate;
+            $date->addDay()
+        ) {
+
+            $days[] = $date->copy();
+
+        }
 
         return view(
             'admin.attendance.user_list',
             compact(
                 'user',
                 'attendances',
-                'currentMonth'
+                'currentMonth',
+                'days'
             )
         );
     }

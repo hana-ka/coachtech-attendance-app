@@ -46,25 +46,35 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($attendances as $attendance)
+                @foreach ($days as $day)
+
+                    @php
+                        $attendance =
+                            $attendances[$day->format('Y-m-d')]
+                            ?? null;
+                    @endphp
                 <tr>
-                    <td class="list__td">{{ $attendance->work_date->format('m/d') }}（{{ ['日', '月', '火', '水', '木', '金', '土'][($attendance->work_date)->dayOfWeek] }}）</td>
-                    <td class="list__td">{{ optional($attendance->clock_in)->format('H:i') }}</td>
-                    <td class="list__td">{{ optional($attendance->clock_out)->format('H:i') }}</td>
+                    <td class="list__td">{{ $day->format('m/d') }}
+                    （{{ ['日', '月', '火', '水', '木', '金', '土'][$day->dayOfWeek] }}）</td>
+                    <td class="list__td">{{ optional($attendance?->clock_in)->format('H:i') }}</td>
+                    <td class="list__td">{{ optional($attendance?->clock_out)->format('H:i') }}</td>
                     <td class="list__td">
 
                         @php
 
                             $breakMinutes = 0;
 
-                            foreach ($attendance->breakTimes as $breakTime) {
+                            if ($attendance) {
 
-                                if ($breakTime->break_end) {
+                                foreach ($attendance->breakTimes as $breakTime) {
 
-                                    $breakMinutes +=
-                                        $breakTime->break_start
-                                            ->diffInMinutes($breakTime->break_end);
+                                    if ($breakTime->break_end) {
 
+                                        $breakMinutes +=
+                                            $breakTime->break_start
+                                                ->diffInMinutes($breakTime->break_end);
+
+                                    }
                                 }
                             }
 
@@ -79,7 +89,7 @@
                     </td>
                     <td class="list__td">
 
-                        @if ($attendance->clock_in && $attendance->clock_out)
+                        @if ($attendance && $attendance->clock_in && $attendance->clock_out)
 
                             @php
 
@@ -102,7 +112,7 @@
 
                     <td class="list__td"><a
                         class="list__link"
-                        href="{{ route('admin.attendance.detail', $attendance->id) }}">詳細</a></td>
+                        href="{{ route('admin.attendance.detail',$user->id ) }}?date={{ $day->format('Y-m-d') }}">詳細</a></td>
                 </tr>
                 @endforeach
             </tbody>

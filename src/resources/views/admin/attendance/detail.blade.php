@@ -9,13 +9,28 @@
 @section('content')
 @php
 
+    $workDate = \Carbon\Carbon::parse($date);
+
     $isPending =
         $latestRequest &&
         $latestRequest->status === 'pending';
 
     $breaks = $isPending
         ? $latestRequest->correctionRequestBreaks
-        : $attendance->breakTimes;
+        : ($attendance
+            ? $attendance->breakTimes
+            : collect());
+
+    if ($breaks->isEmpty()) {
+
+        $breaks = collect([
+            (object) [
+                'break_start' => null,
+                'break_end' => null,
+            ]
+        ]);
+
+    }
 
 @endphp
 
@@ -23,7 +38,7 @@
 
     <h1 class="page-title">勤怠詳細</h1>
 
-    <form action="{{ route('admin.attendance.update', $attendance->id) }}" method="POST" class="detail__form">
+    <form action="{{ route('admin.attendance.update', $id) }}?date={{ $date }}" method="POST" class="detail__form">
     @csrf
 
         <div class="detail__card">
@@ -31,15 +46,15 @@
             <div class="detail__row">
                 <p class="detail__label">名前</p>
                 <div class="detail__value">
-                    <p class="detail__text">{{ $attendance->user->name }}</p>
+                    <p class="detail__text">{{ $user->name }}</p>
                 </div>
             </div>
 
             <div class="detail__row">
                 <p class="detail__label">日付</p>
                 <div class="detail__value detail__value--date">
-                    <p class="detail__year">{{ $attendance->work_date->format('Y年') }}</p>
-                    <p class="detail__date">{{ $attendance->work_date->format('n月j日') }}</p>
+                    <p class="detail__year">{{ $workDate->format('Y年') }}</p>
+                    <p class="detail__date">{{ $workDate->format('n月j日') }}</p>
                 </div>
             </div>
 
@@ -48,14 +63,14 @@
                 <div class="detail__value detail__value--time">
                     @if ($isPending)
                         <span class="detail__time detail__time--start">
-                            {{ optional($attendance->clock_in)->format('H:i') }}
+                            {{ optional($attendance?->clock_in)->format('H:i') }}
                         </span>
                     @else
                         <input
                             type="time"
                             name="clock_in"
                             class="detail__input-time"
-                            value="{{ optional($attendance->clock_in)->format('H:i') }}">
+                            value="{{ optional($attendance?->clock_in)->format('H:i') }}">
 
                         @error('clock_in')
                         <p class="detail__error">
@@ -67,14 +82,14 @@
                     <span class="detail__separator">〜</span>
                     @if ($isPending)
                         <span class="detail__time detail__time--end">
-                            {{ optional($attendance->clock_out)->format('H:i') }}
+                            {{ optional($attendance?->clock_out)->format('H:i') }}
                         </span>
                     @else
                         <input
                             type="time"
                             name="clock_out"
                             class="detail__input-time"
-                            value="{{ optional($attendance->clock_out)->format('H:i') }}">
+                            value="{{ optional($attendance?->clock_out)->format('H:i') }}">
 
                         @error('clock_out')
                         <p class="detail__error">

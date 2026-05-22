@@ -107,9 +107,14 @@
 
                         @endif
 
-                    </td>
-                    <td class="list__td"><a class="list__link"
-                    href="{{ route('admin.attendance.detail', $attendance->id) }}">詳細</a>
+                    <td class="list__td">
+                        <a
+                            class="list__link"
+                            href="{{ route('admin.attendance.detail', $attendance->user_id) }}
+                                ?date={{ $currentDate->format('Y-m-d') }}"
+                        >
+                            詳細
+                        </a>
                     </td>
                 </tr>
                 @endforeach

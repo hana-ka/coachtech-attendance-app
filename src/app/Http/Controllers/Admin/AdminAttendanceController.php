@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Attendance;
 use Carbon\Carbon;
 use App\Http\Requests\AttendanceUpdateRequest;
+use App\Models\User;
 
 class AdminAttendanceController extends Controller
 {
@@ -32,26 +33,40 @@ class AdminAttendanceController extends Controller
         );
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        $date = $request->date;
+
+        $user = User::findOrFail($id);
+
         $attendance = Attendance::with([
                 'user',
                 'breakTimes',
                 'correctionRequests.correctionRequestBreaks',
             ])
-            ->findOrFail($id);
-
-        $latestRequest = $attendance->correctionRequests
-            ->sortByDesc('created_at')
+            ->where('user_id', $id)
+            ->whereDate('work_date', $date)
             ->first();
 
-        return view(
-            'admin.attendance.detail',
-            compact(
-                'attendance',
-                'latestRequest'
-            )
-        );
+            $latestRequest = null;
+
+            if ($attendance) {
+
+                $latestRequest = $attendance->correctionRequests
+                    ->sortByDesc('created_at')
+                    ->first();
+            }
+
+                return view(
+                    'admin.attendance.detail',
+                    compact(
+                        'attendance',
+                        'latestRequest',
+                        'date',
+                        'user',
+                        'id'
+                    )
+                );
     }
 
     public function update(
@@ -59,7 +74,20 @@ class AdminAttendanceController extends Controller
         $id
     )
     {
-        $attendance = Attendance::findOrFail($id);
+        $date = $request->date;
+
+        $attendance = Attendance::firstOrCreate(
+
+            [
+                'user_id' => $id,
+                'work_date' => $date,
+            ],
+
+            [
+                'status' => 'off',
+            ]
+
+        );
 
         $attendance->update([
 
@@ -105,10 +133,13 @@ class AdminAttendanceController extends Controller
             ]);
         }
 
-        return redirect()
-            ->route(
+        return redirect(
+            route(
                 'admin.attendance.detail',
-                $attendance->id
-            );
+                $attendance->user_id
+            )
+            . '?date='
+            . $attendance->work_date->format('Y-m-d')
+        );
     }
 }
