@@ -62,7 +62,7 @@
                 <div class="detail__value detail__value--time">
                     @if ($isPending)
                         <span class="detail__time detail__time--start">
-                            {{ optional($attendance?->clock_in)->format('H:i') }}
+                            {{ optional($latestRequest->requested_clock_in)->format('H:i') }}
                         </span>
                     @else
                         <input
@@ -81,7 +81,7 @@
                     <span class="detail__separator">〜</span>
                     @if ($isPending)
                         <span class="detail__time detail__time--end">
-                            {{ optional($attendance?->clock_out)->format('H:i') }}
+                            {{ optional($latestRequest->requested_clock_out)->format('H:i') }}
                         </span>
                     @else
                         <input
