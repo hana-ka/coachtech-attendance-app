@@ -2,6 +2,8 @@
 
 @section('title', '会員登録')
 
+@section('body-class', 'auth-page')
+
 @push('css')
 <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 @endpush

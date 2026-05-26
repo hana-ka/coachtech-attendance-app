@@ -7,12 +7,13 @@
     border-radius: 8px;
     background-color: #fff;
     padding: 15px 20px;
-    margin-bottom: 30px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 /* Month */
 .list__month {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
 }
 
@@ -20,9 +21,16 @@
 .list__nav-btn {
     background: none;
     border: none;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: bold;
     cursor: pointer;
-    color: #333;
+    color: #8a8a8a;
+    text-decoration: none;
+}
+
+.list__arrow {
+    font-weight: 900;
+    color: #999;
 }
 
 /* Table wrapper */
@@ -43,20 +51,39 @@
 .list__th {
     background-color: #fff;
     padding: 16px;
-    font-size: 14px;
+    font-size: 17px;
+    letter-spacing: 2px;
     color: #777;
-    font-weight: 500;
-    text-align: center;
-
+    font-weight: bold;
     border-bottom: 2px solid #ccc;
+}
+
+.list__th--date {
+    padding-right: 75px;
+}
+
+.list__th--name{
+    padding-left: 20px;
+}
+
+
+.list__th--detail {
+    padding-right: 80px;
 }
 
 /* Table data */
 .list__td {
     padding: 18px;
     font-size: 15px;
+    font-weight: bold;
+    color: #777;
     text-align: center;
     border-bottom: 1px solid #eee;
+    letter-spacing: 2px;
+}
+
+.list__td--detail {
+    padding-right: 80px;
 }
 
 /* Remove border from last row */
@@ -73,7 +100,7 @@
 .list__link {
     color: #000;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 /* Hover */
@@ -84,14 +111,17 @@
 /* Tabs */
 .list__tabs {
     display: flex;
-    gap: 40px;
+    gap: 55px;
     border-bottom: 1px solid #000;
-    margin-bottom: 30px;
+    margin-bottom: 45px;
+    margin-top: 60px;
 }
 
 /* Tab */
 .list__tab {
-    padding-bottom: 10px;
+    padding-bottom: 18px;
+    padding-left: 50px;
+    text-decoration: none;
     font-size: 16px;
     color: #777;
     cursor: pointer;
@@ -118,4 +148,5 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    text-decoration: none;
 }

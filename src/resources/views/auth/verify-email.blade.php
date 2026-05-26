@@ -2,6 +2,8 @@
 
 @section('title', 'メール認証')
 
+@section('body-class', 'auth-page')
+
 @push('css')
 <link rel="stylesheet" href="{{ asset('css/verify.css') }}">
 @endpush

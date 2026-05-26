@@ -59,7 +59,7 @@
             </div>
 
             <div class="detail__row">
-                <p class="detail__label">出勤・退勤</p>
+                <p class="detail__label detail__label--narrow">出勤・退勤</p>
                 <div class="detail__value detail__value--time">
                     @if ($isPending)
                         <span class="detail__time detail__time--start">
@@ -105,7 +105,7 @@
 
             <div class="detail__row">
 
-                <p class="detail__label">
+                <p class="detail__label detail__label--narrow">
                     {{ $index === 0 ? '休憩' : '休憩' . ($index + 1) }}
                 </p>
 
@@ -156,7 +156,7 @@
             @endforeach
 
             <div class="detail__row">
-                <p class="detail__label">備考</p>
+                <p class="detail__label detail__label--narrow">備考</p>
                 <div class="detail__value">
                     @if ($isPending)
                         <p class="detail__text">

@@ -23,53 +23,37 @@
 /* Nav */
 
 .header-nav {
-
     display: flex;
-
     align-items: center;
-
     gap: 20px;
-
 }
 
 /* Link group */
 
 .header-nav__links {
-
     display: flex;
-
     gap: 30px;
-
 }
 
 /* Links */
 
 .header-nav__link {
-
     color: white;
-
     text-decoration: none;
-
     font-size: 16px;
-
     font-weight: 500;
-
 }
 
 /* Hover */
 
 .header-nav__link:hover {
-
     opacity: 0.7;
-
 }
 
 /* Logout */
 
 .header-nav__logout {
-
     margin-left: 20px;
-
 }
 
 /* Logout button */
@@ -87,9 +71,7 @@
 /* Hover */
 
 .header-nav__logout-btn:hover {
-
     opacity: 0.7;
-
 }
 
 .body {
@@ -108,10 +90,10 @@
 .page-title {
     font-size: 22px;
     font-weight: 600;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 
     position: relative;
-    padding-left: 15px;
+    padding-left: 20px;
 }
 
 .page-title::before {
@@ -121,8 +103,8 @@
     top: 50%;
     transform: translateY(-50%);
 
-    width: 4px;
-    height: 24px;
+    width: 6px;
+    height: 30px;
     background-color: #000;
 }
 

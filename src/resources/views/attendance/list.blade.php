@@ -12,18 +12,18 @@
     <h1 class="page-title">勤怠一覧</h1>
 
     <div class="list__header">
-        <a href="/attendance/list?month={{ $currentMonth->copy()->subMonth()->format('Y-m') }}" class="list__nav-btn">← 前月</a>
+        <a href="/attendance/list?month={{ $currentMonth->copy()->subMonth()->format('Y-m') }}" class="list__nav-btn"><span class="list__arrow">←</span> 前月</a>
 
         <h2 class="list__month"> {{ $currentMonth->format('Y/m') }}</h2>
 
-        <a href="/attendance/list?month={{ $currentMonth->copy()->addMonth()->format('Y-m') }}" class="list__nav-btn">翌月 → </a>
+        <a href="/attendance/list?month={{ $currentMonth->copy()->addMonth()->format('Y-m') }}" class="list__nav-btn">翌月<span class="list__arrow"> → </span></a>
     </div>
 
     <div class="list__table-wrapper">
         <table class="list__table">
             <thead>
                 <tr>
-                    <th class="list__th">日付</th>
+                    <th class="list__th list__th--date">日付</th>
                     <th class="list__th">出勤</th>
                     <th class="list__th">退勤</th>
                     <th class="list__th">休憩</th>
@@ -41,8 +41,7 @@
                             ?? null;
                     @endphp
                     <tr>
-                        <td class="list__td">{{ $day->format('m/d') }}
-                            （{{ ['日', '月', '火', '水', '木', '金', '土'][$day->dayOfWeek] }}）</td>
+                        <td class="list__td">{{$day->format('m/d')}}（{{ ['日', '月', '火', '水', '木', '金', '土'][$day->dayOfWeek] }}）</td>
                         <td class="list__td">{{ optional($attendance?->clock_in)->format('H:i') }}</td>
                         <td class="list__td">{{ optional($attendance?->clock_out)->format('H:i') }}</td>
                         <td class="list__td">

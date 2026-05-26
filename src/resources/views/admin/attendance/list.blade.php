@@ -14,7 +14,6 @@
         {{ $currentDate->format('Y年n月j日') }}の勤怠
     </h1>
 
-    <!-- Header -->
     <div class="list__header">
         <a
             href="{{ route('admin.attendance.list', [
@@ -39,7 +38,7 @@
         <table class="list__table">
             <thead>
                 <tr>
-                    <th class="list__th">名前</th>
+                    <th class="list__th list__th--name">名前</th>
                     <th class="list__th">出勤</th>
                     <th class="list__th">退勤</th>
                     <th class="list__th">休憩</th>

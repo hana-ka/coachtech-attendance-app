@@ -31,7 +31,7 @@
             </div>
 
             <div class="detail__row">
-                <p class="detail__label">出勤・退勤</p>
+                <p class="detail__label detail__label--narrow">出勤・退勤</p>
                 <div class="detail__value detail__value--time">
                     <p class="detail__time detail__time--start"> {{ optional($request->requested_clock_in)->format('H:i') }}</p>
                     <p class="detail__separator">〜</p>
@@ -41,7 +41,7 @@
 
             @foreach ($request->correctionRequestBreaks as $index => $break)
             <div class="detail__row">
-                <p class="detail__label">
+                <p class="detail__label detail__label--narrow">
                     {{ $index === 0 ? '休憩' : '休憩' . ($index + 1) }}
                 </p>
                 <div class="detail__value detail__value--time">
@@ -53,7 +53,7 @@
             @endforeach
 
             <div class="detail__row">
-                <p class="detail__label">備考</p>
+                <p class="detail__label detail__label--narrow">備考</p>
                 <div class="detail__value">
                     <p class="detail__text">{{ $request->note }}</p>
                 </div>
@@ -61,7 +61,7 @@
 
         </div>
 
-        <div class="detail__actions">
+        <div class="detail__button-wrapper">
             @if ($request->status === 'pending')
                 <button type="submit" class="detail__button">承認</button>
             @else

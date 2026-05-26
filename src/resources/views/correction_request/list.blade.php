@@ -35,7 +35,7 @@
                     <th class="list__th">対象日時</th>
                     <th class="list__th">申請理由</th>
                     <th class="list__th">申請日時</th>
-                    <th class="list__th">詳細</th>
+                    <th class="list__th list__th--detail">詳細</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,7 +56,7 @@
                     <td class="list__td">
                         {{ $request->created_at->format('Y/m/d') }}
                     </td>
-                    <td class="list__td">
+                    <td class="list__td list__td--detail">
                         <a
                             href="{{ route('attendance.detail', $request->attendance->work_date->format('Y-m-d') )}}"
                             class="list__link"

@@ -11,7 +11,7 @@
     @stack('css')
 
 </head>
-<body class="body">
+<body class="body @yield('body-class')">
 
     <header class="header">
         <div class="header-inner">

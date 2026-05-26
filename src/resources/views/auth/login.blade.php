@@ -2,6 +2,8 @@
 
 @section('title', 'ログイン')
 
+@section('body-class', 'auth-page')
+
 @push('css')
 <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 @endpush
