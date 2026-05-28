@@ -4,6 +4,10 @@
 
 @push('css')
 <link rel="stylesheet" href="{{ asset('css/list.css') }}">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+/>
 @endpush
 
 @section('content')
@@ -17,19 +21,21 @@
                 'id' => $user->id,
                 'month' => $currentMonth->copy()->subMonth()->format('Y-m')
             ]) }}"
-            class="list__nav-btn"
-        >
-            ← 前月
+            class="list__nav-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            前月
         </a>
-        <h2 class="list__month">{{ $currentMonth->format('Y/m') }}</h2>
+        <h2 class="list__month">
+            <i class="fa-solid fa-calendar-days"></i>
+            {{ $currentMonth->format('Y/m') }}</h2>
         <a
             href="{{ route('admin.staff.attendance', [
                 'id' => $user->id,
                 'month' => $currentMonth->copy()->addMonth()->format('Y-m')
             ]) }}"
-            class="list__nav-btn"
-        >
-            翌月 →
+            class="list__nav-btn">
+            翌月
+            <i class="fa-solid fa-arrow-right"></i>
         </a>
     </div>
 
@@ -60,31 +66,33 @@
                     <td class="list__td">{{ optional($attendance?->clock_out)->format('H:i') }}</td>
                     <td class="list__td">
 
-                        @php
+                        @if ($attendance)
+                            @php
 
-                            $breakMinutes = 0;
+                                $breakMinutes = 0;
 
-                            if ($attendance) {
+                                if ($attendance) {
 
-                                foreach ($attendance->breakTimes as $breakTime) {
+                                    foreach ($attendance->breakTimes as $breakTime) {
 
-                                    if ($breakTime->break_end) {
+                                        if ($breakTime->break_end) {
 
-                                        $breakMinutes +=
-                                            $breakTime->break_start
-                                                ->diffInMinutes($breakTime->break_end);
+                                            $breakMinutes +=
+                                                $breakTime->break_start
+                                                    ->diffInMinutes($breakTime->break_end);
 
+                                        }
                                     }
                                 }
-                            }
 
-                            $breakHours = floor($breakMinutes / 60);
+                                $breakHours = floor($breakMinutes / 60);
 
-                            $breakRemainMinutes = $breakMinutes % 60;
+                                $breakRemainMinutes = $breakMinutes % 60;
 
-                        @endphp
+                            @endphp
 
-                        {{ sprintf('%02d:%02d', $breakHours, $breakRemainMinutes) }}
+                            {{ sprintf('%02d:%02d', $breakHours, $breakRemainMinutes) }}
+                        @endif
 
                     </td>
                     <td class="list__td">

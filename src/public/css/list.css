@@ -28,9 +28,12 @@
     text-decoration: none;
 }
 
-.list__arrow {
-    font-weight: 900;
-    color: #999;
+.fa-arrow-left{
+    margin-right: 3px;
+}
+
+.fa-arrow-right{
+    margin-left: 3px;
 }
 
 /* Table wrapper */

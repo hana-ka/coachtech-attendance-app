@@ -4,6 +4,10 @@
 
 @push('css')
 <link rel="stylesheet" href="{{ asset('css/list.css') }}">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+/>
 @endpush
 
 @section('content')
@@ -20,9 +24,11 @@
                 'date' => $currentDate->copy()->subDay()->format('Y-m-d')
             ]) }}"
             class="list__nav-btn">
-            ← 前日
+            <i class="fa-solid fa-arrow-left"></i>
+            前日
         </a>
         <h2 class="list__month">
+            <i class="fa-solid fa-calendar-days"></i>
             {{ $currentDate->format('Y/m/d') }}
         </h2>
         <a
@@ -30,7 +36,8 @@
                 'date' => $currentDate->copy()->addDay()->format('Y-m-d')
             ]) }}"
             class="list__nav-btn">
-            翌日 →
+            翌日
+            <i class="fa-solid fa-arrow-right"></i>
         </a>
     </div>
 
