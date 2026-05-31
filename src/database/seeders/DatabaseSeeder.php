@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
             'break_end' => now()->subDays(1)->setHour(15)->addMinutes(30),
         ]);
 
-        $Attendance2 = Attendance::create([
+        $attendance2 = Attendance::create([
             'user_id' => $user->id,
             'work_date' => now()->toDateString(),
             'clock_in' => now()->subHours(3),
