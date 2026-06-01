@@ -25,8 +25,12 @@
             <div class="detail__row">
                 <p class="detail__label">日付</p>
                 <div class="detail__value detail__value--date">
-                    <p class="detail__year">{{ $request->attendance->work_date->format('Y年') }}</p>
-                    <p class="detail__date">{{ $request->attendance->work_date->format('n月j日') }}</p>
+                    <p class="detail__year">
+                        {{ $request->attendance->work_date->format('Y年') }}
+                    </p>
+                    <p class="detail__date">
+                        {{ $request->attendance->work_date->format('n月j日') }}
+                    </p>
                 </div>
             </div>
 
@@ -63,12 +67,20 @@
 
         <div class="detail__button-wrapper">
             @if ($request->status === 'pending')
-                <button type="submit" class="detail__button">承認</button>
+                <button
+                    type="submit"
+                    class="detail__button"
+                >
+                    承認
+                </button>
             @else
                 <button
-                type="button"
-                class="detail__button detail__button--disabled"
-                disabled>承認済み</button>
+                    type="button"
+                    class="detail__button detail__button--disabled"
+                    disabled
+                >
+                    承認済み
+                </button>
             @endif
         </div>
 

@@ -112,6 +112,7 @@
                             {{ sprintf('%02d:%02d', $workHours, $workRemainMinutes) }}
 
                         @endif
+                    </td>
 
                     <td class="list__td">
                         <a

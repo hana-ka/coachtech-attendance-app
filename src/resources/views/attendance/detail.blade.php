@@ -22,12 +22,12 @@
             ? $attendance->breakTimes
             : collect());
 
-    if ($breaks->isEmpty()) {
-        $breaks = collect([
-            (object) [
-                'break_start' => null,
-                'break_end' => null,
-            ]
+    $breaks = collect($breaks);
+
+    if (!$isPending) {
+        $breaks->push((object) [
+            'break_start' => null,
+            'break_end' => null,
         ]);
     }
 
@@ -69,7 +69,7 @@
                             type="time"
                             name="clock_in"
                             class="detail__input-time"
-                            value="{{ optional($attendance?->clock_in)->format('H:i') }}">
+                            value="{{ old('clock_in', optional($attendance?->clock_in)->format('H:i')) }}">
 
                         @error('clock_in')
                         <p class="detail__error">
@@ -88,7 +88,7 @@
                             type="time"
                             name="clock_out"
                             class="detail__input-time"
-                            value="{{ optional($attendance?->clock_out)->format('H:i') }}">
+                            value="{{ old('clock_out', optional($attendance?->clock_out)->format('H:i')) }}">
 
                         @error('clock_out')
                         <p class="detail__error">
@@ -165,7 +165,7 @@
                         <textarea
                             name="note"
                             class="detail__textarea"
-                        ></textarea>
+                        >{{ old('note') }}</textarea>
 
                         @error('note')
                         <p class="detail__error">

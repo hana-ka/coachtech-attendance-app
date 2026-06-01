@@ -17,7 +17,13 @@
 
         <div class="auth-group">
             <label for="email" class="auth-label">メールアドレス</label>
-            <input type="email" id="email" name="email" class="auth-input">
+            <input
+                type="email"
+                id="email"
+                name="email"
+                class="auth-input"
+                value="{{ old('email') }}"
+                >
 
             @error('email')
                 <p class="error">{{ $message }}</p>

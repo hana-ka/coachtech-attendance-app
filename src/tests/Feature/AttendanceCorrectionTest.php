@@ -240,7 +240,7 @@ class AttendanceCorrectionTest extends TestCase
             'note' => '修正申請テスト',
         ]);
 
-        $request = \App\Models\CorrectionRequest::first();
+        $request = CorrectionRequest::first();
 
         $this->actingAs($admin);
 
@@ -291,8 +291,8 @@ class AttendanceCorrectionTest extends TestCase
         CorrectionRequest::create([
             'user_id' => $user->id,
             'attendance_id' => $attendance1->id,
-            'clock_in' => '10:00',
-            'clock_out' => '19:00',
+            'requested_clock_in' => '10:00',
+            'requested_clock_out' => '19:00',
             'note' => '遅延修正',
             'status' => 'pending',
         ]);
@@ -300,8 +300,8 @@ class AttendanceCorrectionTest extends TestCase
         CorrectionRequest::create([
             'user_id' => $user->id,
             'attendance_id' => $attendance2->id,
-            'clock_in' => '11:00',
-            'clock_out' => '20:00',
+            'requested_clock_in' => '11:00',
+            'requested_clock_out' => '20:00',
             'note' => '勤務時間修正',
             'status' => 'pending',
         ]);
@@ -350,8 +350,8 @@ class AttendanceCorrectionTest extends TestCase
         CorrectionRequest::create([
             'user_id' => $user->id,
             'attendance_id' => $attendance1->id,
-            'clock_in' => '10:00',
-            'clock_out' => '19:00',
+            'requested_clock_in' => '10:00',
+            'requested_clock_out' => '19:00',
             'note' => '承認済み修正1',
             'status' => 'approved',
         ]);
@@ -359,8 +359,8 @@ class AttendanceCorrectionTest extends TestCase
         CorrectionRequest::create([
             'user_id' => $user->id,
             'attendance_id' => $attendance2->id,
-            'clock_in' => '11:00',
-            'clock_out' => '20:00',
+            'requested_clock_in' => '11:00',
+            'requested_clock_out' => '20:00',
             'note' => '承認済み修正2',
             'status' => 'approved',
         ]);

@@ -23,6 +23,5 @@ class CorrectionRequestBreak extends Model
     public function correctionRequest()
     {
         return $this->belongsTo(CorrectionRequest::class);
-
     }
 }

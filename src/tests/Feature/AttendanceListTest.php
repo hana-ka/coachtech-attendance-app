@@ -7,6 +7,7 @@ use App\Models\BreakTime;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Carbon\Carbon;
 
 class AttendanceListTest extends TestCase
 {
@@ -14,6 +15,8 @@ class AttendanceListTest extends TestCase
 
     public function test_all_attendance_records_are_displayed()
     {
+        Carbon::setTestNow('2026-06-15');
+
         $user = User::factory()->create();
 
         $attendance1 = Attendance::create([
@@ -73,6 +76,8 @@ class AttendanceListTest extends TestCase
 
     public function test_current_month_is_displayed()
     {
+        Carbon::setTestNow('2026-06-15');
+
         $user = User::factory()->create();
 
         $this->actingAs($user);
@@ -88,6 +93,8 @@ class AttendanceListTest extends TestCase
 
     public function test_previous_month_attendance_is_displayed()
     {
+        Carbon::setTestNow('2026-06-15');
+
         $user = User::factory()->create();
 
         Attendance::create([
@@ -125,6 +132,8 @@ class AttendanceListTest extends TestCase
 
     public function test_next_month_attendance_is_displayed()
     {
+        Carbon::setTestNow('2026-06-15');
+
         $user = User::factory()->create();
 
         Attendance::create([
@@ -162,6 +171,8 @@ class AttendanceListTest extends TestCase
 
     public function test_user_can_view_attendance_detail()
     {
+        Carbon::setTestNow('2026-06-15');
+
         $user = User::factory()->create();
 
         $attendanceDate = today()->subDay();

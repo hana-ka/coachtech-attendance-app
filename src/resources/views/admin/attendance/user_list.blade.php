@@ -60,8 +60,10 @@
                             ?? null;
                     @endphp
                 <tr>
-                    <td class="list__td">{{ $day->format('m/d') }}
-                    （{{ ['日', '月', '火', '水', '木', '金', '土'][$day->dayOfWeek] }}）</td>
+                    <td class="list__td">
+                        {{ $day->format('m/d') }}
+                        （{{ ['日', '月', '火', '水', '木', '金', '土'][$day->dayOfWeek] }}）
+                    </td>
                     <td class="list__td">{{ optional($attendance?->clock_in)->format('H:i') }}</td>
                     <td class="list__td">{{ optional($attendance?->clock_out)->format('H:i') }}</td>
                     <td class="list__td">
@@ -70,8 +72,6 @@
                             @php
 
                                 $breakMinutes = 0;
-
-                                if ($attendance) {
 
                                     foreach ($attendance->breakTimes as $breakTime) {
 
@@ -83,7 +83,6 @@
 
                                         }
                                     }
-                                }
 
                                 $breakHours = floor($breakMinutes / 60);
 
@@ -118,9 +117,14 @@
                         @endif
                     </td>
 
-                    <td class="list__td"><a
-                        class="list__link"
-                        href="{{ route('admin.attendance.detail',$user->id ) }}?date={{ $day->format('Y-m-d') }}">詳細</a></td>
+                    <td class="list__td">
+                        <a
+                            class="list__link"
+                            href="{{ route('admin.attendance.detail',$user->id ) }}?date={{ $day->format('Y-m-d') }}"
+                        >
+                            詳細
+                        </a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -128,7 +132,15 @@
     </div>
 
     <div class="list__actions">
-                <a href="{{ route('admin.staff.csv', ['id' => $user->id,'month' => $currentMonth->format('Y-m')]) }}"class="list__button">CSV出力</a>
+                <a
+                    href="{{ route('admin.staff.csv', [
+                        'id' => $user->id,
+                        'month' => $currentMonth->format('Y-m')
+                    ]) }}"
+                    class="list__button"
+                >
+                    CSV出力
+                </a>
     </div>
 
 </div>

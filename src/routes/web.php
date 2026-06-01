@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Contracts\LoginViewResponse;
-use Laravel\Fortify\Contracts\LoginResponse;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CorrectionRequestController;
 use App\Http\Controllers\Admin\AdminAttendanceController;
@@ -23,11 +22,11 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
-Route::get('/admin/login', function (Request $request) {
+Route::get('/admin/login', function () {
     return app(LoginViewResponse::class);
 });
 
-Route::middleware(['auth','verified'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/attendance', [AttendanceController::class, 'index']);
 
@@ -43,7 +42,8 @@ Route::middleware(['auth','verified'])->group(function () {
 
     Route::get(
     '/attendance/detail/{id}',
-    [AttendanceController::class, 'show'])->name('attendance.detail');
+    [AttendanceController::class, 'show'])
+    ->name('attendance.detail');
 
     Route::post(
     '/attendance/correction/{id}',

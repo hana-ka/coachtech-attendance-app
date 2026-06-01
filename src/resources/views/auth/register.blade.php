@@ -24,7 +24,7 @@
             @enderror
         </div>
 
-        <div class="login-group">
+        <div class="auth-group">
             <label for="email" class="auth-label">メールアドレス</label>
             <input type="email" id="email" name="email" value="{{ old('email') }}" class="auth-input">
 

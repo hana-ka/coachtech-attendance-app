@@ -87,9 +87,11 @@ class AttendanceUpdateRequest extends FormRequest
                     );
                 }
 
-                if ($breakStart &&
+                if (
+                    $breakStart &&
                     $breakEnd &&
-                    $breakEnd <= $breakStart) {
+                    $breakEnd <= $breakStart
+                ) {
 
                     $validator->errors()->add(
 

@@ -15,7 +15,7 @@ class AdminUserController extends Controller
     {
         $users = User::where('role', 'user')->get();
 
-        return view('admin.user.list',compact('users'));
+        return view('admin.user.list', compact('users'));
     }
 
     public function attendance(Request $request, $id)

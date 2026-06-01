@@ -51,13 +51,12 @@ class AdminAttendanceController extends Controller
             $latestRequest = null;
 
             if ($attendance) {
-
                 $latestRequest = $attendance->correctionRequests
                     ->sortByDesc('created_at')
                     ->first();
             }
 
-                return view(
+            return view(
                     'admin.attendance.detail',
                     compact(
                         'attendance',
@@ -101,14 +100,15 @@ class AdminAttendanceController extends Controller
                 . ' '
                 . $request->clock_out,
 
+            'status' => $request->clock_out
+                ? 'done'
+                : 'working',
+
         ]);
 
         $attendance->breakTimes()->delete();
 
-        foreach (
-            $request->break_start
-            as $index => $breakStart
-        ) {
+        foreach ($request->break_start as $index => $breakStart) {
 
             if (
                 !$breakStart ||

@@ -29,6 +29,6 @@ class CreateBreakTimesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('breaks');
+        Schema::dropIfExists('break_times');
     }
 }

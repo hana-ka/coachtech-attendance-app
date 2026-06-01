@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\CorrectionRequest;
 
 
@@ -45,8 +44,7 @@ class AdminCorrectionRequestController extends Controller
         $attendance->breakTimes()->delete();
 
         foreach (
-            $correctionRequest->correctionRequestBreaks
-            as $break
+            $correctionRequest->correctionRequestBreaks as $break
         ) {
 
             $attendance->breakTimes()->create([

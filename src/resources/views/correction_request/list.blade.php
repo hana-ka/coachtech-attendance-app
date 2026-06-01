@@ -58,7 +58,7 @@
                     </td>
                     <td class="list__td list__td--detail">
                         <a
-                            href="{{ route('attendance.detail', $request->attendance->work_date->format('Y-m-d') )}}"
+                            href="{{ route('attendance.detail', $request->attendance->work_date->format('Y-m-d')) }}"
                             class="list__link"
                         >
                             詳細

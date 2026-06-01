@@ -21,7 +21,6 @@
 }
 
 /* Nav */
-
 .header-nav {
     display: flex;
     align-items: center;
@@ -29,14 +28,12 @@
 }
 
 /* Link group */
-
 .header-nav__links {
     display: flex;
     gap: 30px;
 }
 
 /* Links */
-
 .header-nav__link {
     color: white;
     text-decoration: none;
@@ -45,19 +42,16 @@
 }
 
 /* Hover */
-
 .header-nav__link:hover {
     opacity: 0.7;
 }
 
 /* Logout */
-
 .header-nav__logout {
     margin-left: 20px;
 }
 
 /* Logout button */
-
 .header-nav__logout-btn {
     background: none;
     border: none;
@@ -69,7 +63,6 @@
 
 
 /* Hover */
-
 .header-nav__logout-btn:hover {
     opacity: 0.7;
 }

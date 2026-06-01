@@ -12,8 +12,7 @@ use App\Http\Requests\AttendanceUpdateRequest;
 class CorrectionRequestController extends Controller
 {
     public function store(
-    AttendanceUpdateRequest $request,
-    $id)
+        AttendanceUpdateRequest $request, $id)
     {
         $attendance = Attendance::firstOrCreate(
 

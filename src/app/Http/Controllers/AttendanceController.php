@@ -180,8 +180,8 @@ class AttendanceController extends Controller
         $latestRequest = null;
 
         if ($attendance) {
-            $latestRequest =
-            $attendance->correctionRequests
+            $latestRequest = $attendance
+                ->correctionRequests
                 ->sortByDesc('created_at')
                 ->first();
         }

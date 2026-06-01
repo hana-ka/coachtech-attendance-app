@@ -53,7 +53,10 @@
                             ?? null;
                     @endphp
                     <tr>
-                        <td class="list__td">{{$day->format('m/d')}}（{{ ['日', '月', '火', '水', '木', '金', '土'][$day->dayOfWeek] }}）</td>
+                        <td class="list__td">
+                            {{$day->format('m/d')}}
+                            （{{ ['日', '月', '火', '水', '木', '金', '土'][$day->dayOfWeek] }}）
+                        </td>
                         <td class="list__td">{{ optional($attendance?->clock_in)->format('H:i') }}</td>
                         <td class="list__td">{{ optional($attendance?->clock_out)->format('H:i') }}</td>
                         <td class="list__td">
@@ -62,8 +65,6 @@
                                 @php
 
                                     $breakMinutes = 0;
-
-                                    if ($attendance) {
 
                                         foreach ($attendance->breakTimes as $breakTime) {
 
@@ -75,7 +76,6 @@
 
                                             }
                                         }
-                                    }
 
                                     $breakHours = floor($breakMinutes / 60);
 
@@ -89,7 +89,7 @@
                         </td>
                         <td class="list__td">
 
-                            @if ($attendance &&$attendance->clock_in && $attendance->clock_out)
+                            @if ($attendance && $attendance->clock_in && $attendance->clock_out)
 
                                 @php
 
