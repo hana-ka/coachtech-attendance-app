@@ -76,8 +76,7 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 ```bash
 php artisan key:generate
-php artisan migrate
-php artisan db:seed
+php artisan migrate:fresh --seed
 ```
 
 ## 使用技術（実行環境）
@@ -115,6 +114,16 @@ php artisan test
 テスト実行時に既存データが影響を受けないよう、テスト専用のデータベースを使用しています。
 
 必要に応じて `.env.testing` を作成し、テスト用DBを設定してください。
+
+//テスト用データベースの作成
+docker-compose exec mysql bash
+mysql -u root -p
+//パスワードはrootと入力
+create database test_database;
+
+docker-compose exec php bash
+php artisan migrate:fresh --env=testing
+./vendor/bin/phpunit
 
 
 ## ログイン情報
