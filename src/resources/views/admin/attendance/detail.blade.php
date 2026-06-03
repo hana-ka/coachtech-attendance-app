@@ -70,11 +70,11 @@
                             class="detail__input-time"
                             value="{{ old('clock_in', optional($attendance?->clock_in)->format('H:i')) }}">
 
-                        @error('clock_in')
-                        <p class="detail__error">
-                            {{ $message }}
-                        </p>
-                        @enderror
+                        @if ($errors->has('clock_in') || $errors->has('clock_out'))
+                            <p class="detail__error">
+                                {{ $errors->first('clock_in') ?: $errors->first('clock_out') }}
+                            </p>
+                        @endif
 
                     @endif
                     <span class="detail__separator">〜</span>
@@ -88,12 +88,6 @@
                             name="clock_out"
                             class="detail__input-time"
                             value="{{ old('clock_out', optional($attendance?->clock_out)->format('H:i')) }}">
-
-                        @error('clock_out')
-                        <p class="detail__error">
-                            {{ $message }}
-                        </p>
-                        @enderror
 
                     @endif
                 </div>
@@ -120,12 +114,15 @@
                             class="detail__input-time"
                             value="{{ optional($break->break_start)->format('H:i') }}">
 
-                            @error("break_start.$index")
-                            <p class="detail__error">
-                                {{ $message }}
-                            </p>
-                            @enderror
-
+                            @if ($errors->has("break_start.$index"))
+                                <p class="detail__error">
+                                    {{ $errors->first("break_start.$index") }}
+                                </p>
+                            @elseif ($errors->has("break_end.$index"))
+                                <p class="detail__error">
+                                    {{ $errors->first("break_end.$index") }}
+                                </p>
+                            @endif
                     @endif
                     <span class="detail__separator">〜</span>
                     @if ($isPending)
@@ -139,13 +136,6 @@
                             name="break_end[]"
                             class="detail__input-time"
                             value="{{ optional($break->break_end)->format('H:i') }}">
-
-                        @error("break_end.$index")
-                        <p class="detail__error">
-                            {{ $message }}
-                        </p>
-                        @enderror
-
                     @endif
                 </div>
 

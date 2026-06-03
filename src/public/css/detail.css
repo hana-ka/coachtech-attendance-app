@@ -9,6 +9,7 @@
 
 /* Row */
 .detail__row {
+    position: relative;
     display: flex;
     align-items: center;
     padding: 30px;
@@ -114,6 +115,8 @@
 
 /* error */
 .detail__error {
+    position: absolute;
+    bottom: 10px;
     margin-top: 8px;
     font-size: 14px;
     color: red;

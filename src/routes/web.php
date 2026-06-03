@@ -22,6 +22,12 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
+Route::get('/', function () {
+    return auth()->check()
+        ? redirect('/attendance')
+        : redirect('/login');
+});
+
 Route::get('/admin/login', function () {
     return app(LoginViewResponse::class);
 });
