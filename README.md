@@ -105,10 +105,7 @@ php artisan migrate:fresh --seed
 * MailHog：http://localhost:8025/
 
 ## テスト
-テストは以下のコマンドで実行できます。
-```bash
-php artisan test
-```
+
 ### テスト用データベースについて
 
 テスト実行時に既存データが影響を受けないよう、テスト専用のデータベースを使用しています。
@@ -116,14 +113,26 @@ php artisan test
 必要に応じて `.env.testing` を作成し、テスト用DBを設定してください。
 
 //テスト用データベースの作成
+```
 docker-compose exec mysql bash
+```
+```
 mysql -u root -p
-//パスワードはrootと入力
-create database test_database;
+```
 
+//パスワードはrootと入力
+```
+create database test_database;
+```
+```
 docker-compose exec php bash
+```
+```
 php artisan migrate:fresh --env=testing
+```
+```
 ./vendor/bin/phpunit
+```
 
 
 ## ログイン情報
